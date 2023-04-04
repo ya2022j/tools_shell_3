@@ -24,3 +24,5 @@ firewall-cmd --permanent --zone=public --add-service=cockpit;
 firewall-cmd --reload ;
 
 # 访问9090端口即可
+firewall-cmd --add-port=9090/tcp --permanent;
+firewall-cmd --reload ;
