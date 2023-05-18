@@ -34,7 +34,7 @@ docker run -d --hostname my-rabbit --name rabbit -p 15672:15672 -p 5673:5672 rab
 # *重要注意：此处如果docker启动失败，我们通过docker logs 镜像ID可以去查看下docker启动镜像日志，方便排查故障，例如端口冲突，容器名称冲突。
 
 # #命令：docker logs 镜像ID
-# 随后在通过 docker exec -it 容器id /bin/bssh
+# 随后在通过 docker exec -it 容器id /bin/bash
 
 # 例如：#命令docker exec -it a9e428d5f120 /bin/bash
 # 进入容器内部后，在运行
