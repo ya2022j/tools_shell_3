@@ -62,3 +62,55 @@ done < "$file_path"
 你可以将上述脚本中的"path/to/file.txt"替换为你实际要读取的文本文件路径，并将prefix="前缀字符串: "和suffix=" 后缀字符串"替换为你想要的前缀和后缀字符串。然后执行脚本，每行数据将在前后添加前缀和后缀后进行输出。
 
 这种方法通过逐行读取文件，并在每行数据的前后进行字符串拼接来实现你的需求。希望这个方法符合你的要求！
+
+
+
+echo " "
+echo "=====================   param check  ====================="
+echo " "
+
+if [ "$1" = "-h" ] && [ "$3" = "-c" ]
+then
+    while getopts ":h:c:" opt; do
+    case $opt in
+        h)
+            if [ ! -f "$OPTARG" ]; then
+                echo "2"
+                exit 2
+            fi;;
+        c)
+            if [ ! -f "$OPTARG" ]; then
+                echo "3"
+                exit 3
+            fi;;
+    esac
+done
+else
+            echo "1"
+            exit 1
+fi
+echo "=====================   param OK　   ====================="
+echo " "
+
+echo "=====================   main exec　　　　　  ====================="
+echo " "
+
+
+prefix="ssh ip sh shell_tool.sh -h "
+suffix="  $4"
+while IFS= read -r line; do
+    result="$prefix$line$suffix"
+    # echo $result
+    exec `$result`
+    if [ $? -eq 0 ];then 
+        echo 0
+    else
+        echo 1
+    fi 
+
+done < "$2"
+
+
+
+
+
