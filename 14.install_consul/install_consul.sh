@@ -43,7 +43,7 @@
 # 二、编辑/usr/local/consul/start.sh
 
 # #!/bin/bash
-# consul agent -dev -ui -node=consul-dev -client=192.168.1.210
+# consul agent -dev -ui -node=consul-dev -client=192.168.1.210 &;
 # 三、执行命令
 
 # systemctl start consul
