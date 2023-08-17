@@ -37,8 +37,10 @@ def main(argv):
         os.system("go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2")
         os.system("go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28")
         #compile_cmd  = " protoc -I={1} --go_out={1} {0}".format(protofilePath,absolutePath)
-        compile_cmd  = "protoc --go_out=. --go-grpc_out=. {0}.proto".format(protofile)
-        os.system(compile_cmd)
+        compile_cmd_grpc  = "protoc --go_out=. --go-grpc_out=. {0}.proto".format(protofile)
+        compile_cmd_micro  = "protoc --proto_path=. --micro_out=. --go_out=. {0}.proto".format(protofile)
+        os.system(compile_cmd_grpc)
+        os.system(compile_cmd_micro)
         print(compile_cmd)
 
 
