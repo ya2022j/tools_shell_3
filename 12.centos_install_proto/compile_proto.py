@@ -1,12 +1,11 @@
 
 
 
-
 # 介绍python获取命令行参数的方法：getopt模和argparse模块。
 import os
 import sys
 import getopt
-
+import subprocess
 
 
 def main(argv):
@@ -25,23 +24,29 @@ def main(argv):
             if option in ("-p", "--protofile"):
                 protofile  = value
 
-
+# gRPC  +  micro
 # protoc -I=$SRC_DIR --go_out=$DST_DIR $SRC_DIR/addressbook.proto
         absolutePath = os.getcwd()
         protofilePath = os.path.join(absolutePath,protofile)
-        os.system("export PATH=$PATH:/usr/local/go/bin;")
+        subprocess.call("export PATH=$PATH:/usr/local/go/bin;",shell=True)
+        subprocess.call("go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2",shell=True)
+        subprocess.call("go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28",shell=True)
+        subprocess.call("go install google.golang.org/protobuf/cmd/protoc-gen-go@latest",shell=True)
+        subprocess.call("go install github.com/go-micro/generator/cmd/protoc-gen-micro@latest",shell=True)
+
+
         # --go_out: protoc-gen-go: Plugin failed with status code 1.の解決方法
-        os.system("export GOPATH=$HOME/go")
-        os.system("PATH=$PATH:$GOPATH/bin")
-        # os.system('export PATH="$PATH:$(go env GOPATH)/bin')
-        os.system("go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2")
-        os.system("go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28")
+        subprocess.call("export GOPATH=$HOME/go",shell=True)
+        subprocess.call("PATH=$PATH:$GOPATH/bin",shell=True)
+        # subprocess.call('export PATH="$PATH:$(go env GOPATH)/bin')
+
         #compile_cmd  = " protoc -I={1} --go_out={1} {0}".format(protofilePath,absolutePath)
-        compile_cmd_grpc  = "protoc --go_out=. --go-grpc_out=. {0}.proto".format(protofile)
-        compile_cmd_micro  = "protoc --proto_path=. --micro_out=. --go_out=. {0}.proto".format(protofile)
-        os.system(compile_cmd_grpc)
-        os.system(compile_cmd_micro)
-        print(compile_cmd)
+        compile_cmd_grpc  = "protoc --go_out=. --go-grpc_out=. {0}".format(protofile)
+        compile_cmd_micro  = "protoc --proto_path=. --micro_out=. --go_out=. {0}".format(protofile)
+        subprocess.call(compile_cmd_grpc,shell=True)
+        subprocess.call(compile_cmd_micro,shell=True)
+        print(compile_cmd_grpc)
+        print(compile_cmd_micro)
 
 
 
