@@ -21,6 +21,8 @@ docker search rabbitmq:v3.11.2;
 
 #  三、拉取镜像完成后，我们需要的就是通过docker来启动这个rabbitmq来帮助我们完成所需要的环境部署工作。
 # #命令：docker run -d --hostname my-rabbit --name rabbit -p 15672:15672 -p 5673:5672 rabbitmq:3.11.2
+# 安装启动rabbitmq容器
+docker run -d --name myRabbitMQ -e RABBITMQ_DEFAULT_USER=zsr -e RABBITMQ_DEFAULT_PASS=123456 -p 15672:15672 -p 5672:5672 rabbitmq:3.8.14-management
 # 需要注意几点：
 
 # 1、-p 是mq内部外部映射端口，-p 外部端口：内部端口；
